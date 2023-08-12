@@ -29,6 +29,7 @@ class Quiz:
         self.opt_selected = IntVar()
         self.opts = self.Radiobtn()
         self.display_options(self.qn)
+        self.buttons()
     
         
 # Creating the title and question for the QUIZ
@@ -63,6 +64,14 @@ class Quiz:
         for op in options[qn]:
             self.opts[val] ['text'] = op
             val += 1
+
+# Creating next question button and Exit quiz button
+
+    def buttons(self):
+        nbutton = Button(root, text="Next", width=10,font=("times",16,"bold"))
+        nbutton.place(x=200,y=380)
+        quitbutton = Button(root, text="EXIT", command=root.destroy, width=10,font=("times",16,"bold"))
+        quitbutton.place(x=380,y=380)
 
 quiz=Quiz()
 root.mainloop()
