@@ -1,0 +1,20 @@
+{
+    "ques" : [
+     "1) Who scored the most goals?",
+     "2) How many clubs won the Champions League",     
+     "3) What year did the first tournament take place?",
+     "4) Which clubs were banned for 5 years?",
+     "5) Which club has won the most champions league titles?"
+     ],
+
+     "options" : [
+     ["Messi", "Benzema", "Neymar", "Ronaldo"], 
+     ["10","23","35","47"], 
+     ["1898", "2000", "1985", "1956"], 
+     ["Spainish Clubs","German Clubs","English Clubs","Italian Clubs"], 
+     ["Real Madrid", "Barcelona","AC Milan", "Bayern Munich"]      
+     ],
+
+     "ans" : [ 4, 2, 4, 3, 1]
+
+}
