@@ -25,12 +25,13 @@ a = (obj ['ans'])
 class Quiz:
     def __init__(self):
         self.qn = 0
+        self.ques = self.question(self.qn)
         self.opt_selected = IntVar()
         self.opts = self.Radiobtn()
-        self.ques = self.question(self.qn)
-        self.correct = 0
+        self.display_options(self.qn)
+    
         
-# Displaying the title and question for the QUIZ
+# Creating the title and question for the QUIZ
 
     def question(self, qn):
         t = Label(root, text="UEFA CHAMPIONS LEAGUE QUIZ", width= 50, bg="blue", fg="white", font=("times",20,"bold"))   
@@ -39,7 +40,7 @@ class Quiz:
         qn.place(x=70,y=100)
         return qn
   
-
+# Creating 4 buttons for answer selection
     
     def Radiobtn(self):
         val = 0
@@ -52,9 +53,16 @@ class Quiz:
             val +=1
             yp += 40
         return b
-        
 
+# Display all options for each question
+
+    def display_options(self, qn):
+        val = 0
+        self.opt_selected.set(0)
+        self.ques['text'] = q[qn]
+        for op in options[qn]:
+            self.opts[val] ['text'] = op
+            val += 1
 
 quiz=Quiz()
-
 root.mainloop()
