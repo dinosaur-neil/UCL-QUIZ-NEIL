@@ -30,7 +30,7 @@ class Quiz:
         self.opts = self.Radiobtn()
         self.display_options(self.qn)
         self.buttons()
-    
+        self.correct=0
         
 # Creating the title and question for the QUIZ
 
@@ -66,12 +66,42 @@ class Quiz:
             val += 1
 
 # Creating next question button and Exit quiz button
+# Next will show the next question & answers whereas Exit will close the window
 
     def buttons(self):
-        nbutton = Button(root, text="Next", width=10,font=("times",16,"bold"))
+        nbutton = Button(root, text="Next", command=self.nextbtn, width=10,font=("times",16,"bold"))
         nbutton.place(x=200,y=380)
         quitbutton = Button(root, text="EXIT", command=root.destroy, width=10,font=("times",16,"bold"))
         quitbutton.place(x=380,y=380)
+
+# This method retrieves the user entered value
+
+    def checkans(self, qn):
+        if self.opt_selected.get() == a[qn]:
+            return True
+
+# Checks if the users selected answer is correct
+     
+    def nextbtn(self):
+        if self.checkans(self.qn):
+            self.correct +=1
+        self.qn +=1
+        if self.qn == len (q):
+            self.display_result()
+        else:    
+            self.display_options(self.qn)         
+ 
+# Display score in message box
+
+    def display_result(self):
+        score = int(self.correct / len(q) * 100)
+        result = "Score" + str(score) + "%"
+        wc = len(q) - self.correct
+        correct = "No. of correct answers: " + str(self.correct)
+        wrong =  "No. of wrong answers: " + str(wc)
+        mb.showinfo("result: ", "\n".join([result, correct, wrong]))
+
+
 
 quiz=Quiz()
 root.mainloop()
