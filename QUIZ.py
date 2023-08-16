@@ -39,7 +39,7 @@ class Quiz:
         t = Label(root, text="UEFA CHAMPIONS LEAGUE QUIZ", width= 50, bg="deepPink2", fg="white", font=("times",20,"bold"))   
         t.place(x=0, y=2)
         qn = Label(root, text=q[qn], width=60, fg="white", bg="Midnight Blue", font=("times", 16, "bold"), anchor="w")
-        qn.place(x=70,y=100)
+        qn.place(x=150, y=100)
         return qn
   
 # Creating 4 buttons for answer selection
@@ -51,7 +51,7 @@ class Quiz:
         while val < 4:
             btn = Radiobutton(root, text="", variable=self.opt_selected, value=val + 1, font=("times", 14), bg="deepPink2", fg="Midnight Blue")
             b.append(btn)
-            btn.place(x=100, y=yp)
+            btn.place(x=150, y=yp)
             val +=1
             yp += 40
         return b
@@ -71,9 +71,9 @@ class Quiz:
 
     def buttons(self):
         nbutton = Button(root, text="Next", command=self.nextbtn, width=10, bg="deep sky blue", fg="White", font=("times",16,"bold"))
-        nbutton.place(x=200,y=380)
+        nbutton.place(x=345,y=380)
         quitbutton = Button(root, text="EXIT", command=root.destroy, width=10, bg="red2", fg="white", font=("times",16,"bold"))
-        quitbutton.place(x=380,y=380)
+        quitbutton.place(x=665,y=45)
 
 # This method retrieves the user entered value
 
