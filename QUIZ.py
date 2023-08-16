@@ -19,6 +19,7 @@ with open('File.json') as f:
 q = (obj ['ques'])
 options = (obj['options'])
 a = (obj ['ans'])
+root.configure(background="Midnight Blue") # Changing the screens background color
 
 # Creating a class for the QUIZ Q&A section
 
@@ -35,9 +36,9 @@ class Quiz:
 # Creating the title and question for the QUIZ
 
     def question(self, qn):
-        t = Label(root, text="UEFA CHAMPIONS LEAGUE QUIZ", width= 50, bg="blue", fg="white", font=("times",20,"bold"))   
+        t = Label(root, text="UEFA CHAMPIONS LEAGUE QUIZ", width= 50, bg="deepPink2", fg="white", font=("times",20,"bold"))   
         t.place(x=0, y=2)
-        qn = Label(root, text=q[qn], width=60, font=("times", 16, "bold"), anchor="w")
+        qn = Label(root, text=q[qn], width=60, fg="white", bg="Midnight Blue", font=("times", 16, "bold"), anchor="w")
         qn.place(x=70,y=100)
         return qn
   
@@ -48,7 +49,7 @@ class Quiz:
         b = []
         yp = 150
         while val < 4:
-            btn = Radiobutton(root, text="", variable=self.opt_selected, value=val + 1, font=("times", 14))
+            btn = Radiobutton(root, text="", variable=self.opt_selected, value=val + 1, font=("times", 14), bg="deepPink2", fg="Midnight Blue")
             b.append(btn)
             btn.place(x=100, y=yp)
             val +=1
@@ -69,9 +70,9 @@ class Quiz:
 # Next will show the next question & answers whereas Exit will close the window
 
     def buttons(self):
-        nbutton = Button(root, text="Next", command=self.nextbtn, width=10,font=("times",16,"bold"))
+        nbutton = Button(root, text="Next", command=self.nextbtn, width=10, bg="deep sky blue", fg="White", font=("times",16,"bold"))
         nbutton.place(x=200,y=380)
-        quitbutton = Button(root, text="EXIT", command=root.destroy, width=10,font=("times",16,"bold"))
+        quitbutton = Button(root, text="EXIT", command=root.destroy, width=10, bg="red2", fg="white", font=("times",16,"bold"))
         quitbutton.place(x=380,y=380)
 
 # This method retrieves the user entered value
