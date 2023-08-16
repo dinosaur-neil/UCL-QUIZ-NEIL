@@ -26,12 +26,13 @@ root.configure(background="Midnight Blue") # Changing the screens background col
 class Quiz:
     def __init__(self):
         self.qn = 0
-        self.ques = self.question(self.qn)
         self.opt_selected = IntVar()
-        self.opts = self.Radiobtn()
+        self.correct_answer = IntVar()
+        self.opts = self.checkbtn()
+        self.ques = self.question(self.qn)
         self.display_options(self.qn)
         self.buttons()
-        self.correct=0
+        self.correct = 0
         
 # Creating the title and question for the QUIZ
 
@@ -44,26 +45,30 @@ class Quiz:
   
 # Creating 4 buttons for answer selection
     
-    def Radiobtn(self):
+    def checkbtn(self):
         val = 0
         b = []
         yp = 150
         while val < 4:
-            btn = Radiobutton(root, text="", variable=self.opt_selected, value=val + 1, font=("times", 14), bg="deepPink2", fg="Midnight Blue")
+            btn = Checkbutton(root, text="", variable=self.opt_selected, onvalue=val + 1, offvalue=0, bg="deepPink2", fg="Midnight Blue", font=("times", 14), command=self.check)
             b.append(btn)
             btn.place(x=150, y=yp)
             val +=1
             yp += 40
         return b
+    
+    def check(self):
+        pass
 
 # Display all options for each question
 
     def display_options(self, qn):
         val = 0
         self.opt_selected.set(0)
+        self.correct_answer.set(a[qn])
         self.ques['text'] = q[qn]
         for op in options[qn]:
-            self.opts[val] ['text'] = op
+            self.opts[val]['text'] = op
             val += 1
 
 # Creating next question button and Exit quiz button
@@ -75,22 +80,28 @@ class Quiz:
         quitbutton = Button(root, text="EXIT", command=root.destroy, width=10, bg="red2", fg="white", font=("times",16,"bold"))
         quitbutton.place(x=665,y=45)
 
-# This method retrieves the user entered value
+# This method retrieves the users entered value
 
     def checkans(self, qn):
-        if self.opt_selected.get() == a[qn]:
-            return True
+        selected_option = self.opt_selected.get()
+        correct_option = self.correct_answer.get()
+        return selected_option == correct_option 
 
 # Checks if the users selected answer is correct
      
     def nextbtn(self):
+        selected_option = self.opt_selected.get()
+        if selected_option == 0: # Check if an answer option is selected
+            mb.showerror("Error", "Please choose an answer.") # Error message
+            return  # Stay on the same question until an answer option is selected   
+
         if self.checkans(self.qn):
-            self.correct +=1
-        self.qn +=1
-        if self.qn == len (q):
-            self.display_result()
-        else:    
-            self.display_options(self.qn)         
+            self.correct += 1
+        self.qn += 1
+        if self.qn == len(q):
+            self.display_result
+        else:
+            self.display_options(self.qn)             
  
 # Display score in message box
 
