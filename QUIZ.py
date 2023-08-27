@@ -13,16 +13,16 @@ import threading
 #Creating QUIZ window to put questions and answers
 
 root = Tk()
-root.geometry("800x475")
+root.geometry("800x500")
 root.title("Quiz")
 with open('File.json') as f:
     obj = json.load(f)
-q = (obj ['ques'])
-options = (obj['options'])
-a = (obj ['ans'])
-root.configure(background="Midnight Blue") # Changing the screens background color
+q = obj['ques']
+options = obj['options']
+a = obj['ans']
+root.configure(background="Midnight Blue")
 
-# Creating a class for the QUIZ Q&A & timer section
+# Creating a class for the QUIZ Q&A section
 
 class Quiz:
     def __init__(self):
@@ -40,7 +40,6 @@ class Quiz:
         self.start_timer()
 
 
-# Creating a timer that counts down from 60 seconds. Once timer runs out, the quiz ends
 
     def start_timer(self): 
         self.timer_thread = threading.Thread(target=self.timer_countdown) 
@@ -54,7 +53,8 @@ class Quiz:
             import time
             time.sleep(1)
         self.display_result()    
-     
+
+        
 # Creating the title and question for the QUIZ
 
     def question(self, qn):
@@ -92,6 +92,8 @@ class Quiz:
             self.opts[val]['text'] = op
             val += 1
 
+      
+
 # Creating next question button and Exit quiz button
 # Next will show the next question & answers whereas Exit will close the window
 
@@ -103,7 +105,6 @@ class Quiz:
 
     def check(self):
         pass
-
 # This method retrieves the users entered value
 
     def checkans(self, qn):
@@ -115,7 +116,7 @@ class Quiz:
      
     def nextbtn(self):
         selected_option = self.opt_selected.get()
-        if selected_option == 0:  
+        if selected_option == 0:  # Check if an option is selected
             mb.showerror("Error", "Please choose an answer.")
             return  # Stay on the same question until an option is selected
 
@@ -127,38 +128,33 @@ class Quiz:
         else:
             self.display_options(self.qn)
  
-# Removing certain labels for results page
+# Display score in Results Screen
 
     def display_result(self):
-        self.ques.destroy()  
+        self.ques.destroy()  # Destroy the question label
         for opt in self.opts:
-            opt.destroy()  
-        self.next_button.destroy()  
-        self.timer_label.destroy()  
+            opt.destroy()  # Destroy the option checkboxes
+        self.next_button.destroy()  # Remove the "Next" button
+        self.timer_label.destroy()  # Remove the timer label
         result_window = ResultWindow(self.correct, len(q))
+        
 
 
-# Creating home page
+# Creating home page with a "Start Quiz" button
 
 class StartScreen:
     def __init__(self):
         self.title_label = Label(root, text="UEFA CHAMPIONS LEAGUE QUIZ", width=50, bg="DeepPink2", fg="white", font=("times", 20, "bold"))
         self.title_label.place(x=0, y=2)
 
-# Title to welcome users to my quiz
-
         self.title_label = Label(root, text="Welcome to my Quiz, test your UCL knowledge!", width=40, fg="white", bg="Midnight Blue", font=("times", 20, "bold"))
         self.title_label.place(x=70, y=140)
-
-# Start quiz button        
 
         self.start_button = Button(root, text="START QUIZ!", bg="deep sky blue", fg="white", command=self.start_quiz, width=15, font=("times", 16, "bold"))
         self.start_button.place(x=300, y=250)
 
         quit_button = Button(root, text="EXIT", fg="white", bg="red2", command=root.destroy, width=10, font=("times", 16, "bold"))
         quit_button.place(x=665, y=45)
-
-# User goes to the questions page when the button is clicked and certain labels/buttons get removed
 
     def start_quiz(self):
         self.title_label.destroy()
@@ -168,23 +164,19 @@ class StartScreen:
 start_screen = StartScreen()
 
 
-# Creating a results window to take users to see their results after finishing QUIZ
-# New heading for end of quiz
+# Creating a results window for users to go to after finishing QUIZ, and a "Restart" button to retake the quiz
 
 class ResultWindow:
     def __init__(self, correct, total):
         self.result_label = Label(root, text="UEFA CHAMPIONS LEAGUE QUIZ FINISHED!", width=50, bg="DeepPink2", fg="white", font=("times", 20, "bold"))
         self.result_label.place(x=0, y=2)
 
-# Displaying users score
-
         score = str(correct) + "/" + str(total)
         result = "Score: " + score
         result_label = Label(root, text=result, bg="Midnight Blue", fg="white", font=("times", 18, "bold"))
         result_label.place(x=345, y=200)
 
-# Displaying special message labels for their score
-
+# Display the "Congratulations" label if the score is perfect (all questions correct)
         if correct == total:
             congrats_label = Label(root, text="Congratulations Champ!", bg="Midnight Blue", fg="White", font=("times", 18, "bold"))
             congrats_label.place(x=275, y=150)
@@ -202,14 +194,12 @@ class ResultWindow:
             unlucky_label.place(x=318, y=150)
 
         if correct == 3:
-            unlucky_label = Label(root, text="Good Job Mate!", bg="Midnight Blue", fg="White", font=("times", 18, "bold"))
+            unlucky_label = Label(root, text="Good job Mate!", bg="Midnight Blue", fg="White", font=("times", 18, "bold"))
             unlucky_label.place(x=318, y=150)    
        
         if correct == 4:
             unlucky_label = Label(root, text="Great Job Genius!", bg="Midnight Blue", fg="White", font=("times", 18, "bold"))
             unlucky_label.place(x=308, y=150)
-
-# Restart button for users who want to retake the quiz
 
         self.restart_button = Button(root, text="Restart", fg="white", bg="deep sky blue", command=self.restart_quiz, width=10, font=("times", 16, "bold"))
         self.restart_button.place(x=340, y=380)
@@ -220,12 +210,15 @@ class ResultWindow:
     def on_close(self):
         root.destroy()
 
-# User goes to home page once the click Restart button and certain buttons/labels get removed
+        
+
     def restart_quiz(self):
         self.result_label.destroy()
         self.restart_button.destroy()
         for widget in root.winfo_children():
             widget.destroy()
         start_screen = StartScreen()
+
+
 
 root.mainloop()
